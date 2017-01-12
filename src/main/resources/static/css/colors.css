@@ -1,0 +1,41 @@
+.midnightblueColor {
+    color: midnightblue;
+}
+
+.borrowedBooksRowColor {
+    background-color: darkseagreen;
+}
+
+.overdueBooksRowColor {
+    background-color: lightsalmon;
+}
+
+.greenColor {
+    color: green;
+}
+
+.orangeColor {
+    color: #d58512;
+}
+
+.blueColor {
+    color: #2a6496;
+}
+
+.darkRedColor {
+    color: darkred;
+}
+
+.grayColor {
+    color: lightgrey;
+}
+
+.blackAnch {
+    color: #333;
+    text-decoration: none;
+}
+
+.blackAnch:hover, .blackAnch:focus {
+    color: #333;
+    text-decoration: none;
+}

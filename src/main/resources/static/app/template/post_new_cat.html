@@ -1,0 +1,68 @@
+<div class="well">
+    <uib-tabset active="active">
+        <uib-tab index="0" heading="Register cat">
+            <h4>Cat's details</h4>
+            <form ng-submit="vm.postCat(addCatForm)" style="text-align: left" name="addCatForm" novalidate>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Cat's name"
+                           ng-model="vm.cat.name" required>
+                    <label>Age</label>
+                    <input type="text" class="form-control" name="age" id="age" placeholder="Cat's age"
+                           ng-model="vm.cat.age" required>
+
+                <div class="row" ng-repeat="skill in vm.cat.skills track by $index">
+                    <label>Skill</label>
+                    <input type="text" class="form-control" name="skill" id="skill" placeholder="Skill"
+                           ng-model="skill.name">
+                    <label>Experience</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Experience"
+                           ng-model="skill.experience">
+                </div>
+                <div class="row">
+                    <div class="text-left col-md-6 top10">
+                        <button type="button" class="btn btn-success" ng-click="vm.addSkill()" style="margin-top:10px">
+                            Add skill
+                        </button>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="text-left col-md-6 top10">
+                        <button class="btn btn-success" type="submit" id="submitCat">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </uib-tab>
+        <uib-tab index="1" ng-click="vm.getCats()" select="" heading="Show cats" active="vm.tabShowCatsActive" >
+
+            <div class="alert alert-info text-center" role="alert" ng-show="vm.noCats">
+                <p class="alert-link">There are no cats to be displayed!</p>
+            </div>
+            <div class="panel panel-default" ng-hide="vm.noCats">
+                <div class="panel-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-fixed table-hover">
+                            <thead>
+                            <tr>
+                                <th width=50%>Cat name
+                                </th>
+                                <th width=50%>Number of skills
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr id="catRow" ng-repeat = "cat in vm.cats">
+                                <td class="table-column-ellipsis">{{cat.name}}</td>
+                                <td class="table-column-ellipsis">{{cat.skills.length}}</td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>
