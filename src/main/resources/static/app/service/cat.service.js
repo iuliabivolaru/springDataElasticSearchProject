@@ -10,7 +10,8 @@
     function catsService($http) {
         var service = {
             createCat: createCat,
-            getCats: getCats
+            getCats: getCats,
+            updateCat: updateCat
         };
 
         return service;
@@ -27,6 +28,14 @@
         function getCats() {
             return $http.get("/veterinary")
                 .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function updateCat(cat) {
+            return $http.put("/veterinary", cat)
+                .then(function (response) {
+                    //console.log(quiz);
                     return response.data;
                 });
         }

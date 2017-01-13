@@ -19,8 +19,7 @@ import javax.validation.ValidationException;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/veterinary")
@@ -55,6 +54,21 @@ public class CatController {
 
         return new ResponseEntity<>(listOfCats.getContent(), HttpStatus.OK);
 
+    }
+
+    @RequestMapping(method = PUT)
+    public ResponseEntity<Cat> putCat(@RequestBody Cat cat) {
+        logger.info("Updating cat "+ cat);
+        catService.updateCat(cat);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = DELETE)
+    public ResponseEntity<Cat> deleteCat(@RequestBody Cat cat) {
+        catService.deleteCat(cat);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
