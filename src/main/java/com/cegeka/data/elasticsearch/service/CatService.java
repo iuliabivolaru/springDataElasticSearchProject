@@ -47,7 +47,7 @@ public class CatService {
        repository.save(cat);
     }
 
-    public void deleteCat(Cat cat) {
-        repository.delete(cat);
+    public void deleteCat(String id) {
+        repository.delete(id);
     }
 }

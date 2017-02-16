@@ -11,7 +11,8 @@
         var service = {
             createCat: createCat,
             getCats: getCats,
-            updateCat: updateCat
+            updateCat: updateCat,
+            deleteCat: deleteCat
         };
 
         return service;
@@ -30,6 +31,14 @@
                 .then(function (response) {
                     return response.data;
                 });
+        }
+
+        function deleteCat(id) {
+            console.log("calling cat deletion in service", id);
+            return $http.delete("/veterinary/cats/" + id)
+                .then(function (response) {
+                    return response.data;
+                })
         }
 
         function updateCat(cat) {

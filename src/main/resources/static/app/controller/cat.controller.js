@@ -1,7 +1,7 @@
 /**
  * Created by iuliab on 10.01.2017.
  */
-(function() {
+(function () {
     angular
         .module("Cats")
         .controller("CatsCtrl", CatsCtrl);
@@ -12,6 +12,7 @@
 
         vm.postCat = postCat;
         vm.addSkill = addSkill;
+        vm.deleteCat = deleteCat;
 
         activate();
 
@@ -28,17 +29,16 @@
         }
 
         function postCat(addCatForm) {
-            if(addCatForm.$invalid)
+            if (addCatForm.$invalid)
                 return;
-            // vm.cat.skills.push();
             catsService
                 .createCat(vm.cat)
-                .then(function(data){
+                .then(function (data) {
                     activate();
                     addCatForm.$setPristine();
                     createNotification("Cat successfully submitted!", "success");
-                }, function(data){
-                    if(data.status == 400)
+                }, function (data) {
+                    if (data.status == 400)
                         createNotification("Something wrong happened when trying to submit the cat", "danger");
                 });
         }
@@ -54,9 +54,9 @@
         function getCats() {
             catsService
                 .getCats()
-                .then(function(data) {
+                .then(function (data) {
                     vm.cats = data;
-                    for(var i = 0; i < vm.cats.length; ++i){
+                    for (var i = 0; i < vm.cats.length; ++i) {
                         vm.cats[i].index = i;
                     }
                     makeTabActive(1);
@@ -75,12 +75,25 @@
             }
         }
 
-        function deleteCat(cat) {
-
+        function deleteCat(id) {
+            console.log("calling cat deletion in controller", id);
+            // catToDelete = {
+            //     id: cat.id,
+            //     name: cat.name,
+            //     age: cat.age,
+            //     skills: cat.skills
+            // };
+            console.log("Cat to delete", id);
+            catsService
+                .deleteCat(id)
+                .then(function (data) {
+                        createNotification("Cat successfully deleted!", "success");
+                    }
+                )
         }
 
         function createNotification(message, type) {
-            $.notify(message,{
+            $.notify(message, {
                 placement: {
                     from: "bottom",
                     align: "right"
@@ -119,16 +132,16 @@
                     cat: function () {
                         return vm.cats[selectedIndex];
                     },
-                    name: function () {
-                        return vm.cats[selectedIndex].name;
-                    },
+                    // name: function () {
+                    //     return vm.cats[selectedIndex].name;
+                    // },
                     index: function () {
                         return selectedIndex;
                     },
-                    skills: function() {
+                    skills: function () {
                         return vm.cats[selectedIndex].skills;
                     },
-                    id: function() {
+                    id: function () {
                         return vm.cats[selectedIndex].id;
                     }
                 }

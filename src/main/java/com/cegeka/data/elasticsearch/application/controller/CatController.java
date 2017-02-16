@@ -7,16 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.ValidationException;
-import java.util.List;
 import java.util.logging.Logger;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -47,7 +45,7 @@ public class CatController {
     @RequestMapping(method = GET)
     public ResponseEntity getCats() {
         logger.info("Getting new cat ");
-        Pageable pageable = new PageRequest( 0, 100 );
+        Pageable pageable = new PageRequest(0, 100);
         Page<Cat> listOfCats = catService.findCats(pageable);
         if (listOfCats.getContent().isEmpty())
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -58,15 +56,16 @@ public class CatController {
 
     @RequestMapping(method = PUT)
     public ResponseEntity<Cat> putCat(@RequestBody Cat cat) {
-        logger.info("Updating cat "+ cat);
+        logger.info("Updating cat " + cat);
         catService.updateCat(cat);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(method = DELETE)
-    public ResponseEntity<Cat> deleteCat(@RequestBody Cat cat) {
-        catService.deleteCat(cat);
+    @RequestMapping(name = "/cats/{id}", method = DELETE)
+    public ResponseEntity<Cat> deleteCat(@PathVariable String id) {
+        logger.info("Deleting cat" + id);
+        catService.deleteCat(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

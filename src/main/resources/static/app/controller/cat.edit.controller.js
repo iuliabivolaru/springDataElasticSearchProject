@@ -6,7 +6,7 @@ angular.module("Cats").controller("ModalInstanceCtrl", function ($uibModalInstan
     $scope.cat = cat;
     $scope.index = index;
     $scope.skills = skills;
-    $scope.name = name;
+    // $scope.name = name;
 
     $scope.addSkill = addSkill;
     $scope.putCat = putCat;
@@ -21,10 +21,11 @@ angular.module("Cats").controller("ModalInstanceCtrl", function ($uibModalInstan
     };
 
     function putCat() {
+        console.log("!!!Scope.cat:", $scope.cat);
         catsService
             .updateCat($scope.cat)
             .then(function(data){
-                //activate();
+                console.log("!!!Scope.cat:", $scope.cat);
             }, function(data){
                 if(data.status == 400)
                     console.log("error");
